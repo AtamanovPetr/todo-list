@@ -24,7 +24,7 @@ function App() {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   }
   return (
-    <div>
+    <div className="container">
       <AddTodoForm onAdd={handleAddTodo} />
       <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
     </div>

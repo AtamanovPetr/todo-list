@@ -10,15 +10,19 @@ function AddTodoForm({ onAdd }: { onAdd: (text: string) => void }) {
     setText("");
   }
   return (
-    <form action="#" onSubmit={sendText} className="todo-form">
-      <input
-        type="text"
-        value={text}
-        onChange={handleInput}
-        className="todo-input"
-      />
-      <button className="todo-btn" type="submit"></button>
-    </form>
+    <section className="main">
+      <form action="#" onSubmit={sendText} className="todo-form">
+        <input
+          type="text"
+          value={text}
+          onChange={handleInput}
+          className="todo-input"
+        />
+        <button className="todo-btn" type="submit">
+          Сохранить
+        </button>
+      </form>
+    </section>
   );
 }
 
