@@ -1,0 +1,64 @@
+:root {
+  --bg: #1e1e2f;
+  --card-bg: rgba(20, 20, 30, 0.75);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0b0;
+  --accent: #8b5cf6;
+  --btn-bg: #2d2d3f;
+  --btn-hover-bg: #3d3d5c;
+  --danger: #ef4444;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+}
+.todo-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.todo-input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+.todo-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  margin-bottom: 8px;
+}
+.todo-item__checkbox {
+  margin-right: 12px;
+}
+.todo-item__text {
+  flex: 1;
+}
+.todo-item__text--completed {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+.todo-item__delete {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+}
