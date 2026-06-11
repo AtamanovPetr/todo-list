@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+const audio = new Audio("/sounds/click.mp3");
 function AddTodoForm({ onAdd }: { onAdd: (text: string) => void }) {
   const [text, setText] = useState<string>("");
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -6,11 +7,15 @@ function AddTodoForm({ onAdd }: { onAdd: (text: string) => void }) {
   }
   function sendText(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    onAdd(text);
+    if (text.length > 0) {
+      audio.play();
+      onAdd(text);
+    }
     setText("");
   }
   return (
     <section className="main">
+      <h1 className="todo-title">Список задач: </h1>
       <form action="#" onSubmit={sendText} className="todo-form">
         <input
           type="text"

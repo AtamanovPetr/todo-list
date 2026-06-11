@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 :root {
   --bg: #1e1e2f;
   --card-bg: rgba(20, 20, 30, 0.75);
@@ -35,7 +38,7 @@ body {
   border: 1px solid var(--card-border);
   background: var(--card-bg);
   color: var(--text-primary);
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 1px 10px rgba(89, 18, 253, 0.4);
   transition: all 0.2s ease;
 }
 .todo-input:focus {
@@ -45,11 +48,10 @@ body {
 .todo-btn {
   padding: 12px 24px;
   border-radius: 8px;
-  border: none;
-  background: var(--accent);
+  background: var(--card-bg);
   color: #fff;
   cursor: pointer;
-  background: linear-gradient(135deg, var(--accent), #6d28d9);
+  border: linear-gradient(135deg, var(--accent), #6d28d9);
   box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
   transition: all 0.2s ease;
 }
@@ -61,6 +63,7 @@ body {
   display: flex;
   align-items: center;
   padding: 20px;
+  max-width: 300px;
   border-radius: 8px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -117,4 +120,65 @@ body {
 
 .main {
   padding-top: 70px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 15px 30px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--text-primary);
+}
+
+.filter-btn--active {
+  background: linear-gradient(135deg, var(--accent), #6d28d9);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.filter-btn--active:hover {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.todo-title {
+  text-align: center;
+  font-size: 50px;
+  margin-top: 0;
+  transition: 0.3s all;
+}
+
+@media (max-width: 450px) {
+  .todo-form {
+    flex-direction: column;
+  }
+  .todo-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .todo-btn {
+    width: 100%;
+    padding: 20px 30px;
+  }
+  .todo-title {
+    font-size: 30px;
+  }
+  .filter-buttons {
+    flex-direction: column;
+  }
 }

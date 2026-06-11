@@ -1,5 +1,6 @@
 import React from "react";
 import type { Todo } from "../types";
+const audioCheck = new Audio("/sounds/water.wav");
 function TodoItem({
   todo,
   onToggle,
@@ -14,7 +15,10 @@ function TodoItem({
       <input
         className="todo-item__checkbox"
         type="checkbox"
-        onChange={() => onToggle(todo.id)}
+        onChange={() => {
+          onToggle(todo.id);
+          audioCheck.play();
+        }}
       ></input>
       <span
         className={`todo-item__text ${todo.completed ? "todo-item__text--completed" : ""}`}
