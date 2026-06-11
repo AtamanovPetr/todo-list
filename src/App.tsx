@@ -3,6 +3,7 @@ import type { Todo, FilterType } from "./types";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
 import FilterButtons from "./components/FilterButtons";
+import Archive from "./components/Archive";
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
@@ -23,13 +24,22 @@ function App() {
       id: crypto.randomUUID(),
       text: text,
       completed: false,
+      completedDate: null,
     };
     setTodos((prev) => [...prev, newTodo]);
   }
   function handleToggle(id: string) {
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+        todo.id === id
+          ? {
+              ...todo,
+              completed: !todo.completed,
+              completedDate: todo.completed
+                ? null
+                : new Date().toLocaleDateString("ru-RU"),
+            }
+          : todo,
       ),
     );
   }
@@ -41,11 +51,12 @@ function App() {
       return !todo.completed;
     } else if (filter === "completed") {
       return todo.completed;
+    } else if (filter === "all") {
+      return !todo.completed;
     }
-    return true;
   });
   function handleClearAll() {
-    setTodos([]);
+    setTodos(todos.filter((todo) => todo.completedDate != null));
   }
 
   return (
@@ -61,6 +72,7 @@ function App() {
         onToggle={handleToggle}
         onDelete={handleDelete}
       />
+      <Archive todos={todos} />
     </div>
   );
 }

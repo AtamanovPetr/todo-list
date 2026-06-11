@@ -153,6 +153,7 @@ body {
 }
 
 .filter-btn--active:hover {
+  background: linear-gradient(135deg, var(--accent), #6d28d9);
   box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
 }
 
@@ -161,6 +162,89 @@ body {
   font-size: 50px;
   margin-top: 0;
   transition: 0.3s all;
+}
+
+/* Заголовок архива */
+.archive h2 {
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* Элемент списка — одна строка с датой и счётчиком */
+.archive-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+/* Эффект при наведении */
+.archive-item:hover {
+  background: var(--btn-hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Дата */
+.archive-item__date {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Счётчик задач */
+.archive-item__count {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Контейнер раскрытых задач */
+.archive-tasks {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--card-border);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease,
+    margin-top 0.3s ease;
+  margin-top: 0;
+}
+.archive-tasks--expanded {
+  max-height: 1000px; /* достаточно большое, чтобы вместить все задачи */
+  opacity: 1;
+  margin-top: 12px;
+}
+
+/* Одна задача в архиве */
+.archive-tasks__item {
+  padding: 8px 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.archive-tasks__item::before {
+  content: "✓";
+  color: var(--accent);
+  font-weight: bold;
 }
 
 @media (max-width: 450px) {
