@@ -1,4 +1,3 @@
-import React from "react";
 import type { Todo } from "../types";
 const audioCheck = new Audio("/sounds/water.wav");
 function TodoItem({

@@ -1,4 +1,3 @@
-import React from "react";
 import type { FilterType } from "../types";
 function FilterButtons({
   filter,
