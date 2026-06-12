@@ -29,7 +29,7 @@ function FilterButtons({
         </button>
       ))}
       <button className="filter-btn" onClick={onClear}>
-        Очистить всё
+        Очистить все задачи
       </button>
     </div>
   );

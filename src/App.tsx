@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { Todo, FilterType } from "./types";
 import AddTodoForm from "./components/AddTodoForm";
 import TodoList from "./components/TodoList";
 import FilterButtons from "./components/FilterButtons";
 import Archive from "./components/Archive";
+import Dashboard from "./components/Dashboard";
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
@@ -11,7 +12,14 @@ function App() {
     const saved = localStorage.getItem("todos");
     if (saved) {
       const state = JSON.parse(saved);
-      setTodos(state);
+      setTodos(
+        state.filter(
+          (item: Todo) =>
+            item.completedDate != null ||
+            (!item.completed &&
+              item.createdAt === new Date().toLocaleDateString("ru-RU")),
+        ),
+      );
     }
   }, []);
   useEffect(() => {
@@ -25,6 +33,7 @@ function App() {
       text: text,
       completed: false,
       completedDate: null,
+      createdAt: new Date().toLocaleDateString("ru-RU"),
     };
     setTodos((prev) => [...prev, newTodo]);
   }
@@ -46,17 +55,23 @@ function App() {
   function handleDelete(id: string) {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   }
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === "active") {
-      return !todo.completed;
-    } else if (filter === "completed") {
-      return todo.completed;
-    } else if (filter === "all") {
-      return !todo.completed;
-    }
-  });
+  const filteredTodos = useMemo(() => {
+    const filtered = todos.filter((todo) => {
+      if (filter === "active") {
+        return !todo.completed;
+      } else if (filter === "completed") {
+        return todo.completed;
+      }
+      return true;
+    });
+    return filtered;
+  }, [todos, filter]);
   function handleClearAll() {
     setTodos(todos.filter((todo) => todo.completedDate != null));
+  }
+
+  function handleClearDate(date: string) {
+    setTodos(todos.filter((todo) => todo.completedDate !== date));
   }
 
   return (
@@ -67,12 +82,15 @@ function App() {
         filter={filter}
         onFilterChange={setFilter}
       />
-      <TodoList
-        todos={filteredTodos}
-        onToggle={handleToggle}
-        onDelete={handleDelete}
-      />
-      <Archive todos={todos} />
+      <div className="main-content">
+        <TodoList
+          todos={filteredTodos}
+          onToggle={handleToggle}
+          onDelete={handleDelete}
+        />
+        <Dashboard todos={todos} />
+      </div>
+      <Archive onClearDate={handleClearDate} todos={todos} />
     </div>
   );
 }

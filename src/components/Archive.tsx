@@ -1,6 +1,12 @@
 import { useState } from "react";
 import type { Todo } from "../types";
-function Archive({ todos }: { todos: Todo[] }) {
+function Archive({
+  todos,
+  onClearDate,
+}: {
+  todos: Todo[];
+  onClearDate: (date: string) => void;
+}) {
   const completedTodos = todos.filter((todo) => todo.completedDate != null);
   const grouped = completedTodos.reduce(
     (acc, todo) => {
@@ -41,6 +47,16 @@ function Archive({ todos }: { todos: Todo[] }) {
         >
           <span className="archive-item__date">{date}</span>
           <span className="archive-item__count">{tasks.length} шт</span>
+          <button
+            className="archive-item__clear"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClearDate(date);
+              setExpandedDate(null);
+            }}
+          >
+            Очистить историю
+          </button>
           <div
             className={`archive-tasks ${expandedDate === date ? "archive-tasks--expanded" : ""}`}
           >

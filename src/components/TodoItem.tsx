@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Todo } from "../types";
 const audioCheck = new Audio("/sounds/water.wav");
 function TodoItem({
@@ -9,8 +10,13 @@ function TodoItem({
   onToggle: (id: string) => void;
   onDelete: (id: string) => void;
 }) {
+  const [isRemoving, setIsRemoving] = useState(false);
   return (
-    <div className="todo-item">
+    <div
+      className={
+        isRemoving === true ? "todo-item todo-item--removing" : "todo-item"
+      }
+    >
       <input
         className="todo-item__checkbox"
         type="checkbox"
@@ -24,7 +30,16 @@ function TodoItem({
       >
         {todo.text}
       </span>
-      <button className="todo-item__delete" onClick={() => onDelete(todo.id)}>
+      <button
+        className="todo-item__delete"
+        onClick={() => {
+          setIsRemoving(true);
+          setTimeout(() => {
+            onDelete(todo.id);
+            setIsRemoving(false);
+          }, 300);
+        }}
+      >
         ✕
       </button>
     </div>
