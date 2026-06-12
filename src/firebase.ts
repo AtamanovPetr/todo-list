@@ -4,12 +4,12 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 // Твоя конфигурация из Firebase Console
 const firebaseConfig = {
-  apiKey: "AIzaSyCfkbgw_G013t4dlkqWWJn7ZmgZbW-vnmw",
-  authDomain: "todo-list-sync-c6180.firebaseapp.com",
-  projectId: "todo-list-sync-c6180",
-  storageBucket: "todo-list-sync-c6180.firebasestorage.app",
-  messagingSenderId: "981046082260",
-  appId: "1:981046082260:web:bfbaa44e0100175a16d941",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 // Инициализация Firebase
