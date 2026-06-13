@@ -81,6 +81,7 @@ function App() {
       setUserId(uid);
     }
   }
+
   return (
     <div className="container">
       <header className="app-header">
