@@ -20,6 +20,7 @@ function TodoItem({
       <input
         className="todo-item__checkbox"
         type="checkbox"
+        checked={todo.completed}
         onChange={() => {
           onToggle(todo.id);
           audioCheck.play();

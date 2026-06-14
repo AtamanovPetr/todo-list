@@ -22,6 +22,7 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user != null) {
         setUserId(user.uid);
+        localStorage.removeItem("todos");
       } else {
         setUserId(null);
       }
