@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Todo } from "../types";
-const audioCheck = new Audio("/sounds/water.wav");
+const audioCheck = new Audio("/sounds/water.flac");
 function TodoItem({
   todo,
   onToggle,

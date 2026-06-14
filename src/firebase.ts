@@ -34,11 +34,8 @@ const googleProvider = new GoogleAuthProvider();
 export const loginWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    console.log("Вход выполнен, ID пользователя:", result.user.uid);
     return result.user.uid;
-  } catch (error) {
-    console.error("Ошибка входа:", error);
-  }
+  } catch (error) {}
 };
 
 export const deleteTodoFromCloud = async (userId: string, todoId: string) => {
@@ -57,7 +54,6 @@ export const loadTodos = async (userId: string): Promise<Todo[]> => {
 };
 
 export const saveTodos = async (userId: string, todos: Todo[]) => {
-  console.log("saveTodos вызвана, userId:", userId, "todos:", todos);
   await Promise.all(
     todos.map((todo) => {
       const todosRef = doc(db, "users", userId, "todos", todo.id);

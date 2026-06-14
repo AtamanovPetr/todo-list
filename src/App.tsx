@@ -31,9 +31,7 @@ function App() {
   useEffect(() => {
     const load = async () => {
       if (userId) {
-        console.log("Эффект загрузки сработал, userId:", userId);
         const state = await loadTodos(userId);
-        console.log("Загружено из облака:", state);
         setTodos(
           state.filter(
             (item: Todo) =>
@@ -93,11 +91,11 @@ function App() {
       ),
     );
   }
-  function handleDelete(id: string) {
-    if (userId) {
-      deleteTodoFromCloud(userId, id);
-    }
+  async function handleDelete(id: string) {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    if (userId) {
+      await deleteTodoFromCloud(userId, id);
+    }
   }
   const filteredTodos = useMemo(() => {
     const filtered = todos.filter((todo) => {
@@ -110,12 +108,27 @@ function App() {
     });
     return filtered;
   }, [todos, filter]);
-  function handleClearAll() {
-    setTodos(todos.filter((todo) => todo.completedDate != null));
+  async function handleClearAll() {
+    setTodos([]);
+    if (userId) {
+      await Promise.all(
+        todos.map((item) => {
+          return deleteTodoFromCloud(userId, item.id);
+        }),
+      );
+    }
   }
 
-  function handleClearDate(date: string) {
+  async function handleClearDate(date: string) {
     setTodos(todos.filter((todo) => todo.completedDate !== date));
+    if (userId) {
+      let Massiv = todos.filter((todo) => todo.completedDate === date);
+      await Promise.all(
+        Massiv.map((item) => {
+          return deleteTodoFromCloud(userId, item.id);
+        }),
+      );
+    }
   }
   async function handleLogin() {
     const uid = await loginWithGoogle();
